@@ -27,7 +27,11 @@
   {!! Form::close() !!}  
 
   @if(!empty($results))
-    <!-- @php print_r($results) @endphp -->
+    <!-- 
+      @php 
+        //print_r($results) 
+      @endphp 
+    -->
   <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -37,10 +41,10 @@
         <th scope="col">Dial Number</th>
         <th scope="col">Call Start Time <i class="fa fa-fw fa-sort" onclick="sort('calldate')"></i></th>
         <th scope="col">Call End Time</th>
-        <th scope="col">Handle Time</th>
+        <th scope="col">Status</th>
+        <th scope="col">Unique ID</th>
         <th scope="col">Recording File</th>
         <th scope="col">Play File</th>
-        <th scope="col">Unique ID</th>
       </tr>
     </thead>
     <tbody>
@@ -52,6 +56,13 @@
         <td>{{$cdr->startTime()}}</td>
         <td>{{$cdr->endTime()}}</td>
         <td>{{$cdr->show_time()}}</td>
+        <td>
+          @if($cdr->disposition == "ANSWERED")
+            <span class="font-weight-bold bg-success text-white">{{ $cdr->disposition }}</span>
+          @else
+            <span class="bg-dark text-white">{{ $cdr->disposition }}</span>
+          @endif
+        </td>
         <td>
           @if($cdr->recordingfile != '')
             <a href="/download/{{$cdr->recordingfile}}">Download</a>
@@ -66,7 +77,6 @@
             Not Recording File
           @endif        
         </td>
-        <td>{{$cdr->uniqueid}}</td>
       </tr>
       @endforeach
     </tbody>

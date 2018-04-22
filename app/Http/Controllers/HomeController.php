@@ -40,7 +40,7 @@ class HomeController extends Controller
             $ext = trim($request->ext);
             $sortName = $request->sortName;
             $sortWith = $request->sortWith;
-            $extProject = '57';
+            //$extProject = '57';
 
             $arrRoles = $this->check_roles(Auth::user()->roles);
             // dd($arrRoles);
@@ -75,16 +75,39 @@ class HomeController extends Controller
 
             // $results = DB::table('cdr')->take(5)->get();
             // $results = App\Cdr::take(10)->orderBy('id','desc')->get();
+            
+            if(strlen($ext) > 0 && strlen($ext) <= 5) {
+                $where .= "and (cnum='".$ext."' OR dst='".$ext."')";
+            }
+            
+            if(strlen($ext) > 5) {
+                $where .= "and (src='".$ext."' OR dst='".$ext."' OR cnum='".$ext."')";
+            }
+            // dd($where);     // test
 
-            $results = App\Cdr::where('disposition', 'ANSWERED')
-                ->where('billsec', '<>', 0)
+            // $results = App\Cdr::where('disposition', 'ANSWERED')
+            //     ->where('billsec', '<>', 0)
+            //     ->where('calldate', '>=', $from)
+            //     ->where('calldate', '<=', $to)
+            //     ->whereRaw($where)
+            //     ->take(10)
+            //     ->orderBy($sortName, $sortWith)
+            //     ->paginate(50);
+
+            // $results = App\Cdr::where('calldate', '>=', $from)
+            //     ->where('calldate', '<=', $to)
+            //     ->whereRaw($where)
+            //     ->take(10)
+            //     ->orderBy($sortName, $sortWith)
+            //     ->paginate(50);
+
+            $results = App\Cdr::selectRaw('cnum, src, dst, recordingfile, disposition, calldate, billsec')
                 ->where('calldate', '>=', $from)
                 ->where('calldate', '<=', $to)
                 ->whereRaw($where)
                 ->take(10)
                 ->orderBy($sortName, $sortWith)
                 ->paginate(50);
-
 
             return view('home.index', compact('results'));
         }
