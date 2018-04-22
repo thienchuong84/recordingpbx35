@@ -25,6 +25,12 @@ Route::get('/download/{name}', 'HomeController@download');
 
 Route::get('/play/{name}', 'HomeController@play');
 
+Route::get('/report_ob', 'HomeController@report_ob');
+Route::get('/report_ob_get', 'HomeController@report_ob_get');
+//Route::post('/report_ob_post', 'HomeController@report_ob_post');
+Route::post('/report_ob_post', 'HomeController@report_ob_post');
+Route::post('/report_ob_post2', 'TestController@report_ob_post2');    // test
+
 Route::get('/not_authorize', function(){
     echo "user is not authorize is admin";
 });

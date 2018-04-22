@@ -10,6 +10,7 @@
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <title>Document</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  @yield('header')
 </head>
 <body>
   @include('inc.navbar')
@@ -23,10 +24,11 @@
   </div>  
 
   <footer id="footer" class="text-center">
-    <p>Copyright 2018 &copy; Pivotal</p>
+    <p>Copyright 2018 &copy; Duong Nguyen IMC</p>
   </footer>
 
   <script src="/js/app.js"></script>
+  <script src="/js/appChuong.js"></script>
   @yield('scripts')
 </body>
 </html>

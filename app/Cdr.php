@@ -8,6 +8,9 @@ class Cdr extends Model
 {
     protected $table = "cdr";
 
+    // muốn lấy các biến trong cdr table ta dùng $this->attributes['']
+    // nên ta có thể khai báo nó như là 1 biến của model cdr
+
     public function startDate() {
         return substr($this->attributes['calldate'], 0, 10);
     }
